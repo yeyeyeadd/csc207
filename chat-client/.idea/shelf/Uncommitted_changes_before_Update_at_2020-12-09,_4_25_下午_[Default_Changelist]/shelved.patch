@@ -1,0 +1,517 @@
+Index: src/main/java/ca/utoronto/cs/View/OperatorFrame.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ca.utoronto.cs.View;\nimport ca.utoronto.cs.RequestManager;\nimport ca.utoronto.cs.entity.EventType;\nimport ca.utoronto.cs.entity.Role;\nimport ca.utoronto.cs.message.CreateEventRequest;\nimport ca.utoronto.cs.message.CreateRoomRequest;\nimport ca.utoronto.cs.message.CreateRoomResponse;\nimport ca.utoronto.cs.message.CreateUserAccountRequest;\nimport ca.utoronto.cs.message.ListEventsRequest;\nimport ca.utoronto.cs.message.ListEventsResponse;\nimport ca.utoronto.cs.message.LoginRequest;\nimport ca.utoronto.cs.message.LoginResponse;\nimport ca.utoronto.cs.message.MessageAllSpeakerRequest;\nimport ca.utoronto.cs.entity.Event;\nimport javax.swing.*;\nimport javax.swing.table.DefaultTableCellRenderer;\nimport javax.swing.table.DefaultTableModel;\n\nimport java.awt.*;\nimport java.awt.event.ActionEvent;\nimport java.awt.event.ActionListener;\nimport java.text.SimpleDateFormat;\nimport java.util.ArrayList;\nimport java.util.Date;\nimport java.util.List;\nimport java.util.Vector;\n\npublic class OperatorFrame extends JFrame {\n    private final RequestManager reqMgr;\n    private String username;\n\n    private JPanel panel;\n    private JPanel accountPanel;\n    private JPanel eventPanel;\n    private JPanel messagePanel;\n    private JPanel roomPanel;\n    private JPanel eventListPanel;\n\n    private JTable eventTable;\n    final int FRAME_HEIGHT=600;\n    final int FRAME_WIDTH=650;\n\n    public OperatorFrame(RequestManager reqMgr, String username){\n        this.username = username;\n        this.reqMgr = reqMgr;\n\n        panel = new JPanel();\n        panel.setLayout(new GridLayout(2,3));\n\n        accountPanel = new JPanel();\n        JLabel userNameLabel = new JLabel(\"Username:\");\n        JTextField userNameInput = new JTextField(10);\n        JLabel passwordLabel = new JLabel(\"Password:\");\n        JPasswordField userPasswordInput = new JPasswordField(10);\n        JButton createSpeakerButton = new JButton(\"Create Speaker\");\n        JButton createAttendeeButton = new JButton(\"Create attendee\");\n\n        accountPanel.add(userNameLabel);\n        accountPanel.add(userNameInput);\n        accountPanel.add(passwordLabel);\n        accountPanel.add(userPasswordInput);\n        accountPanel.add(createSpeakerButton);\n        accountPanel.add(createAttendeeButton);\n\n        roomPanel = new JPanel();\n        JLabel roomIDLabel = new JLabel(\"RoomId:\");\n        JTextField roomIDInput = new JTextField(10);\n        JLabel roomNameLabel = new JLabel(\"RoomName:\");\n        JTextField roomNameInput = new JTextField(10);\n        JLabel roomCapacityLabel = new JLabel(\"Capacity:\");\n        JTextField roomCapacityInput = new JTextField(10);\n        JButton addRoomButton = new JButton(\"Add Room\");\n\n        Object[][] rowData = null;\n        Object[] columnNames = { \"RoomID\", \"RoomName\", \"Capacity\" };\n        DefaultTableCellRenderer r = new DefaultTableCellRenderer();\n        r.setHorizontalAlignment(JLabel.CENTER);\n        DefaultTableModel roomModel = new DefaultTableModel(rowData, columnNames);\n        JTable roomTable = new JTable(roomModel);\n        roomTable.setDefaultRenderer(Object.class, r);\n        roomPanel.add(roomIDLabel);\n        roomPanel.add(roomIDInput);\n        roomPanel.add(roomNameLabel);\n        roomPanel.add(roomNameInput);\n        roomPanel.add(roomCapacityLabel);\n        roomPanel.add(roomCapacityInput);\n        roomPanel.add(addRoomButton);\n        roomPanel.add(roomTable.getTableHeader(), BorderLayout.NORTH);\n        roomPanel.add(roomTable, BorderLayout.CENTER);\n        roomPanel.add(roomTable);\n\n        messagePanel = new JPanel();\n        JLabel messageLabel = new JLabel(\"Message\");\n        JTextArea  messageInput = new JTextArea (5,15);\n        JLabel receiverLabel = new JLabel(\"ReceiverID\");\n        JTextField receiverInput = new JTextField(10);\n\n        JCheckBox speakerCheckBox = new JCheckBox(\"All speakers\");\n        JCheckBox attendeeCheckBox = new JCheckBox(\"All attendees\");\n        JButton sendButton = new JButton(\"Send\");\n\n        messagePanel.add(messageLabel);\n        messagePanel.add(messageInput);\n        messagePanel.add(receiverLabel);\n        messagePanel.add(receiverInput);\n        messagePanel.add(speakerCheckBox);\n        messagePanel.add(attendeeCheckBox);\n        messagePanel.add(sendButton);\n\n        eventPanel = new JPanel();\n        JLabel speakerIDLabel = new JLabel(\"SpeakerID:\");\n        JTextField speakerIDInput = new JTextField(10);\n        JLabel roomLabel = new JLabel(\"Room:\");\n        JTextField roomInput = new JTextField(10);\n        JLabel startTimeLabel = new JLabel(\"StartTime:\");\n        JTextField startTimeInput = new JTextField(12);\n        startTimeInput.setText(dateToString(new Date()));\n        JLabel endTimeLabel = new JLabel(\"StartTime:\");\n        JTextField endTimeInput = new JTextField(12);\n        endTimeInput.setText(dateToString(new Date()));\n        JLabel capacityLabel = new JLabel(\"Capacity\");\n        JTextField capacityInput = new JTextField(10);\n        JLabel eventTypeLabel = new JLabel(\"EventType:\");\n        JComboBox<String> eventTypeBox = new JComboBox<String>();\n        eventTypeBox.addItem(\"SOLO\");\n        eventTypeBox.addItem(\"MULTIPLE\");\n        eventTypeBox.addItem(\"NONE\");\n        eventTypeBox.addItem(\"VIPEVENT\");\n        eventTypeBox.setSelectedIndex(2);\n        JButton scheduleButton = new JButton(\"Schedule\");\n        JButton cancelButton = new JButton(\"Cancel\");\n\n        eventPanel.add(speakerIDLabel);\n        eventPanel.add(speakerIDInput);\n        eventPanel.add(roomLabel);\n        eventPanel.add(roomInput);\n        eventPanel.add(startTimeLabel);\n        eventPanel.add(startTimeInput);\n        eventPanel.add(endTimeLabel);\n        eventPanel.add(endTimeInput);\n        eventPanel.add(capacityLabel);\n        eventPanel.add(capacityInput);\n        eventPanel.add(eventTypeLabel);\n        eventPanel.add(eventTypeBox);\n        eventPanel.add(scheduleButton);\n        eventPanel.add(cancelButton);\n\n        eventListPanel = new JPanel();\n        JButton refreshButton = new JButton(\"Refresh\");\n        JButton deleteButton = new JButton(\"Delete\");\n        Object[][] rowEvent = null;\n        Object[] eventColumn = { \"EventID\", \"RoomID\", \"SpeakerID\"};\n        DefaultTableModel eventModel = new DefaultTableModel(rowEvent, eventColumn);\n        eventTable = new JTable(eventModel);\n        eventTable.setDefaultRenderer(Object.class, r);\n        eventListPanel.add(refreshButton);\n        eventListPanel.add(deleteButton);\n        eventListPanel.add(eventTable.getTableHeader(), BorderLayout.NORTH);\n        eventListPanel.add(eventTable, BorderLayout.CENTER);\n        eventListPanel.add(eventTable);\n\n        panel.add(accountPanel);\n        panel.add(eventPanel);\n        panel.add(messagePanel);\n        panel.add(roomPanel);\n        panel.add(eventListPanel);\n\n        createSpeakerButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                String username = userNameInput.getText();\n                String password = userPasswordInput.getText();\n                Role role = Role.fromValue(2);\n                CreateUserAccountRequest  req = new CreateUserAccountRequest();\n                req.username = username;\n                req.password = password;\n                req.role = role;\n                reqMgr.sendAsync(req)\n                        .thenAccept((resp) ->\n                        {JOptionPane.showMessageDialog(null,\"Create Speaker Successfully\");\n                        })\n                        .exceptionally(err -> {\n                            JOptionPane.showMessageDialog(null,\"Create Speaker failed\");\n                            return null;\n                        });\n\n            }\n        });\n\n        createAttendeeButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                String username = userNameInput.getText();\n                String password = userPasswordInput.getText();\n                Role role = Role.fromValue(2);\n                CreateUserAccountRequest  req = new CreateUserAccountRequest();\n                req.username = username;\n                req.password = password;\n                req.role = role;\n                reqMgr.sendAsync(req)\n                        .thenAccept((resp) ->\n                        {JOptionPane.showMessageDialog(null,\"Create Attendee Successfully\");\n                        })\n                        .exceptionally(err -> {\n                            JOptionPane.showMessageDialog(null,\"Create Attendee failed\");\n                            return null;\n                        });\n\n            }\n        });\n\n        addRoomButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                CreateRoomRequest createRoomReq = new CreateRoomRequest();\n                createRoomReq.id = Integer.parseInt(roomIDInput.getText());\n                createRoomReq.name = roomNameInput.getText();\n                createRoomReq.capacity = Integer.parseInt(roomCapacityInput.getText());\n                reqMgr.sendAsync(createRoomReq)\n                        .thenAccept((resp) ->\n                        {JOptionPane.showMessageDialog(null,\"Add room Successfully\");\n\n                            CreateRoomResponse roomResp = (CreateRoomResponse)resp;\n                            ((DefaultTableModel)roomTable.getModel()).addRow(new Object[]{roomResp.room.getId(), roomResp.room.getName(), roomResp.room.getCapacity()});\n\n                        })\n                        .exceptionally(err -> {\n                            JOptionPane.showMessageDialog(null,err.getMessage());\n                            return null;\n                        });\n\n            }\n        });\n\n        scheduleButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n\n                CreateEventRequest createEventReq = new CreateEventRequest();\n                createEventReq.capacity = Integer.parseInt(capacityInput.getText());\n                createEventReq.room = roomInput.getText();\n                createEventReq.startTime = startTimeInput.getText();\n                createEventReq.endTime = endTimeInput.getText();\n                List<String> listSpeaker = new ArrayList<>();\n                listSpeaker.add(speakerIDInput.getText());\n                createEventReq.speaker = listSpeaker;\n                createEventReq.type = EventType.fromValue(getSelectedEventType((String) eventTypeBox.getSelectedItem()));\n                reqMgr.sendAsync(createEventReq)\n                        .thenAccept((resp) ->\n                        {JOptionPane.showMessageDialog(null,\"Schedule event Successfully\");\n                        })\n                        .exceptionally(err -> {\n                            JOptionPane.showMessageDialog(null,err.getMessage());\n                            return null;\n                        });\n\n            }\n        });\n\n        sendButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n\n                MessageAllSpeakerRequest allSpeakerReq = new MessageAllSpeakerRequest();\n                allSpeakerReq.message = messageInput.getText();\n                reqMgr.sendAsync(allSpeakerReq)\n                        .thenAccept((resp) ->\n                        {JOptionPane.showMessageDialog(null,\"Message sent Successfully\");\n                        })\n                        .exceptionally(err -> {\n                            JOptionPane.showMessageDialog(null,err.getMessage());\n                            return null;\n                        });\n\n            }\n        });\n\n        refreshButton.addActionListener(new ActionListener() {\n            @Override\n            public void actionPerformed(ActionEvent e) {\n                getListAllEvents();\n            }\n        });\n\n        this.add(panel, BorderLayout.CENTER);\n        this.setSize(FRAME_WIDTH, FRAME_HEIGHT);\n        this.setTitle(\"Oraganizer Homepage\");\n    }\n\n    private void getListAllEvents() {\n        ListEventsRequest listEventsReq = new ListEventsRequest();\n\n        reqMgr.sendAsync(listEventsReq).thenAccept((resp) -> {\n\n            JOptionPane.showMessageDialog(null, \"Receive Events Successfully\");\n\n            ListEventsResponse eventListResp = (ListEventsResponse) resp;\n            for (int i = 0; i < eventListResp.events.size(); i++) {\n                Event event = eventListResp.events.get(i);\n                if (event.getType().equals(EventType.VIPEVENT)) {\n                    ((DefaultTableModel) eventTable.getModel())\n                            .addRow(new Object[] { event.getId(), event.getRoomId(), event.getSpeakers() });\n                } else {\n                    ((DefaultTableModel) eventTable.getModel())\n                            .addRow(new Object[] { event.getId(), event.getRoomId(), event.getSpeakers() });\n                }\n            }\n\n        }).exceptionally(err -> {\n            JOptionPane.showMessageDialog(null, err.getMessage());\n            return null;\n        });\n    }\n\n    private int getSelectedEventType(String eventType) {\n        switch (eventType) {\n            case \"SOLO\":\n                return 0;\n            case \"MULTIPLE\":\n                return 1;\n            case \"NONE\":\n                return 2;\n            case \"VIPEVENT\":\n                return 3;\n        }\n        return 0;\n    }\n\n    private String dateToString(Date date) {\n        SimpleDateFormat sformat = new SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\");\n        String time = sformat.format(date);\n        return time;\n    }\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/ca/utoronto/cs/View/OperatorFrame.java	(revision 1ac2f67fe84e6b8910f73f5579bdd92a42d4c127)
++++ src/main/java/ca/utoronto/cs/View/OperatorFrame.java	(date 1607549141794)
+@@ -2,15 +2,9 @@
+ import ca.utoronto.cs.RequestManager;
+ import ca.utoronto.cs.entity.EventType;
+ import ca.utoronto.cs.entity.Role;
+-import ca.utoronto.cs.message.CreateEventRequest;
+-import ca.utoronto.cs.message.CreateRoomRequest;
+-import ca.utoronto.cs.message.CreateRoomResponse;
+-import ca.utoronto.cs.message.CreateUserAccountRequest;
+-import ca.utoronto.cs.message.ListEventsRequest;
+-import ca.utoronto.cs.message.ListEventsResponse;
+-import ca.utoronto.cs.message.LoginRequest;
+-import ca.utoronto.cs.message.LoginResponse;
+-import ca.utoronto.cs.message.MessageAllSpeakerRequest;
++import ca.utoronto.cs.entity.Room;
++import ca.utoronto.cs.exception.GenericResponseException;
++import ca.utoronto.cs.message.*;
+ import ca.utoronto.cs.entity.Event;
+ import javax.swing.*;
+ import javax.swing.table.DefaultTableCellRenderer;
+@@ -20,10 +14,8 @@
+ import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
+ import java.text.SimpleDateFormat;
+-import java.util.ArrayList;
+-import java.util.Date;
++import java.util.*;
+ import java.util.List;
+-import java.util.Vector;
+ 
+ public class OperatorFrame extends JFrame {
+     private final RequestManager reqMgr;
+@@ -37,8 +29,10 @@
+     private JPanel eventListPanel;
+ 
+     private JTable eventTable;
+-    final int FRAME_HEIGHT=600;
+-    final int FRAME_WIDTH=650;
++    private JTable roomTable;
++
++    final int FRAME_HEIGHT=650;
++    final int FRAME_WIDTH=900;
+ 
+     public OperatorFrame(RequestManager reqMgr, String username){
+         this.username = username;
+@@ -46,23 +40,26 @@
+ 
+         panel = new JPanel();
+         panel.setLayout(new GridLayout(2,3));
+-
+         accountPanel = new JPanel();
+         JLabel userNameLabel = new JLabel("Username:");
+-        JTextField userNameInput = new JTextField(10);
++        JTextField userNameInput = new JTextField(15);
+         JLabel passwordLabel = new JLabel("Password:");
+-        JPasswordField userPasswordInput = new JPasswordField(10);
+-        JButton createSpeakerButton = new JButton("Create Speaker");
+-        JButton createAttendeeButton = new JButton("Create attendee");
++        JPasswordField userPasswordInput = new JPasswordField(15);
++        JComboBox<String> userTypeBox = new JComboBox<String>();
++        userTypeBox.addItem("Operator");
++        userTypeBox.addItem("User");
++        userTypeBox.addItem("VIP User");
++        userTypeBox.setSelectedIndex(0);
++        JButton createUserButton = new JButton("Create User");
+ 
+         accountPanel.add(userNameLabel);
+         accountPanel.add(userNameInput);
+         accountPanel.add(passwordLabel);
+         accountPanel.add(userPasswordInput);
+-        accountPanel.add(createSpeakerButton);
+-        accountPanel.add(createAttendeeButton);
++        accountPanel.add(userTypeBox);
++        accountPanel.add(createUserButton);
+ 
+-        roomPanel = new JPanel();
++        roomPanel = new JPanel(new FlowLayout());
+         JLabel roomIDLabel = new JLabel("RoomId:");
+         JTextField roomIDInput = new JTextField(10);
+         JLabel roomNameLabel = new JLabel("RoomName:");
+@@ -70,47 +67,58 @@
+         JLabel roomCapacityLabel = new JLabel("Capacity:");
+         JTextField roomCapacityInput = new JTextField(10);
+         JButton addRoomButton = new JButton("Add Room");
++        JButton deleteRoomButton = new JButton("Delete Room");
+ 
+         Object[][] rowData = null;
+         Object[] columnNames = { "RoomID", "RoomName", "Capacity" };
+         DefaultTableCellRenderer r = new DefaultTableCellRenderer();
+         r.setHorizontalAlignment(JLabel.CENTER);
+         DefaultTableModel roomModel = new DefaultTableModel(rowData, columnNames);
+-        JTable roomTable = new JTable(roomModel);
++        roomTable = new JTable(roomModel);
++        getListAllRooms();
+         roomTable.setDefaultRenderer(Object.class, r);
+-        roomPanel.add(roomIDLabel);
+-        roomPanel.add(roomIDInput);
+-        roomPanel.add(roomNameLabel);
+-        roomPanel.add(roomNameInput);
+-        roomPanel.add(roomCapacityLabel);
+-        roomPanel.add(roomCapacityInput);
+-        roomPanel.add(addRoomButton);
++        JPanel roomGridPanel = new JPanel(new GridLayout(4,2));
++        roomGridPanel.add(roomIDLabel);
++        roomGridPanel.add(roomIDInput);
++        roomGridPanel.add(roomNameLabel);
++        roomGridPanel.add(roomNameInput);
++        roomGridPanel.add(roomCapacityLabel);
++        roomGridPanel.add(roomCapacityInput);
++        roomGridPanel.add(addRoomButton);
++        roomGridPanel.add(deleteRoomButton);
++        roomPanel.add(roomGridPanel);
+         roomPanel.add(roomTable.getTableHeader(), BorderLayout.NORTH);
+         roomPanel.add(roomTable, BorderLayout.CENTER);
+         roomPanel.add(roomTable);
+ 
+         messagePanel = new JPanel();
++        JPanel messageGridPanel = new JPanel(new GridLayout(1,2));
+         JLabel messageLabel = new JLabel("Message");
+-        JTextArea  messageInput = new JTextArea (5,15);
+-        JLabel receiverLabel = new JLabel("ReceiverID");
+-        JTextField receiverInput = new JTextField(10);
++        JTextArea  messageInput = new JTextArea (8,20);
++        JComboBox<String> messageSendBox = new JComboBox<>();
++        messageSendBox.addItem("Send To All Speaker");
++        messageSendBox.addItem("Send To All Attendees");
++        messageSendBox.addItem("Send To Specific Event");
++        messageSendBox.addItem("Send To Specific Speaker");
++        messageSendBox.setSelectedIndex(0);
+ 
+-        JCheckBox speakerCheckBox = new JCheckBox("All speakers");
+-        JCheckBox attendeeCheckBox = new JCheckBox("All attendees");
++        JLabel eventIDLabel = new JLabel("EventID:");
++        JTextField eventIDInput = new JTextField(12);
++        eventIDInput.setEnabled(false);
++
+         JButton sendButton = new JButton("Send");
+-
+         messagePanel.add(messageLabel);
+         messagePanel.add(messageInput);
+-        messagePanel.add(receiverLabel);
+-        messagePanel.add(receiverInput);
+-        messagePanel.add(speakerCheckBox);
+-        messagePanel.add(attendeeCheckBox);
++        messagePanel.add(messageSendBox);
++        messageGridPanel.add(eventIDLabel);
++        messageGridPanel.add(eventIDInput);
++        messagePanel.add(messageGridPanel);
+         messagePanel.add(sendButton);
+ 
+-        eventPanel = new JPanel();
++        eventPanel = new JPanel(new GridLayout(7,2));
+         JLabel speakerIDLabel = new JLabel("SpeakerID:");
+         JTextField speakerIDInput = new JTextField(10);
+-        JLabel roomLabel = new JLabel("Room:");
++        JLabel roomLabel = new JLabel("RoomName:");
+         JTextField roomInput = new JTextField(10);
+         JLabel startTimeLabel = new JLabel("StartTime:");
+         JTextField startTimeInput = new JTextField(12);
+@@ -146,18 +154,19 @@
+         eventPanel.add(cancelButton);
+ 
+         eventListPanel = new JPanel();
+-        JButton refreshButton = new JButton("Refresh");
+-        JButton deleteButton = new JButton("Delete");
++        JButton refreshEventsButton = new JButton("Refresh");
++        JButton deleteEventButton = new JButton("Delete");
+         Object[][] rowEvent = null;
+-        Object[] eventColumn = { "EventID", "RoomID", "SpeakerID"};
++        Object[] eventColumn = { "EventID", "RoomID", "SpeakerID","MaxAttendee"};
+         DefaultTableModel eventModel = new DefaultTableModel(rowEvent, eventColumn);
+         eventTable = new JTable(eventModel);
+         eventTable.setDefaultRenderer(Object.class, r);
+-        eventListPanel.add(refreshButton);
+-        eventListPanel.add(deleteButton);
++        eventListPanel.add(refreshEventsButton);
++        eventListPanel.add(deleteEventButton);
+         eventListPanel.add(eventTable.getTableHeader(), BorderLayout.NORTH);
+         eventListPanel.add(eventTable, BorderLayout.CENTER);
+         eventListPanel.add(eventTable);
++        getListAllEvents();
+ 
+         panel.add(accountPanel);
+         panel.add(eventPanel);
+@@ -165,12 +174,16 @@
+         panel.add(roomPanel);
+         panel.add(eventListPanel);
+ 
+-        createSpeakerButton.addActionListener(new ActionListener() {
++        createUserButton.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 String username = userNameInput.getText();
+                 String password = userPasswordInput.getText();
+-                Role role = Role.fromValue(2);
++                if(username.equals("")||password.equals("")) {
++                    JOptionPane.showMessageDialog(null, "Username or password Can not be null", "CheckInput", JOptionPane.INFORMATION_MESSAGE);
++                    return;
++                }
++                Role role = Role.fromValue(userTypeBox.getSelectedIndex()+1);
+                 CreateUserAccountRequest  req = new CreateUserAccountRequest();
+                 req.username = username;
+                 req.password = password;
+@@ -187,67 +200,72 @@
+             }
+         });
+ 
+-        createAttendeeButton.addActionListener(new ActionListener() {
+-            @Override
+-            public void actionPerformed(ActionEvent e) {
+-                String username = userNameInput.getText();
+-                String password = userPasswordInput.getText();
+-                Role role = Role.fromValue(2);
+-                CreateUserAccountRequest  req = new CreateUserAccountRequest();
+-                req.username = username;
+-                req.password = password;
+-                req.role = role;
+-                reqMgr.sendAsync(req)
+-                        .thenAccept((resp) ->
+-                        {JOptionPane.showMessageDialog(null,"Create Attendee Successfully");
+-                        })
+-                        .exceptionally(err -> {
+-                            JOptionPane.showMessageDialog(null,"Create Attendee failed");
+-                            return null;
+-                        });
+-
+-            }
+-        });
+-
+         addRoomButton.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 CreateRoomRequest createRoomReq = new CreateRoomRequest();
++                if(roomIDInput.getText().equals("")||roomNameInput.getText().equals("")||roomCapacityInput.getText().equals("")) {
++                    JOptionPane.showMessageDialog(null, "Values can not be null", "CheckInput", JOptionPane.INFORMATION_MESSAGE);
++                    return;
++                }
+                 createRoomReq.id = Integer.parseInt(roomIDInput.getText());
+                 createRoomReq.name = roomNameInput.getText();
+                 createRoomReq.capacity = Integer.parseInt(roomCapacityInput.getText());
++
+                 reqMgr.sendAsync(createRoomReq)
+                         .thenAccept((resp) ->
+                         {JOptionPane.showMessageDialog(null,"Add room Successfully");
++                            getListAllRooms();
++                        })
++                        .exceptionally(err -> {
++                            JOptionPane.showMessageDialog(null,err.getMessage());
++                            return null;
++                        });
+ 
+-                            CreateRoomResponse roomResp = (CreateRoomResponse)resp;
+-                            ((DefaultTableModel)roomTable.getModel()).addRow(new Object[]{roomResp.room.getId(), roomResp.room.getName(), roomResp.room.getCapacity()});
++            }
++        });
+ 
++        deleteRoomButton.addActionListener(new ActionListener() {
++            @Override
++            public void actionPerformed(ActionEvent e) {
++                DeleteRoomRequest deleteRoomRequest = new DeleteRoomRequest();
++                int index = roomTable.getSelectedRow();
++                if (index == -1) {
++                    JOptionPane.showMessageDialog(null, "Must select a room!", "Check", JOptionPane.INFORMATION_MESSAGE);
++                    return;
++                }
++                deleteRoomRequest.roomId = (int) roomTable.getValueAt(index, 0);
++                reqMgr.sendAsync(deleteRoomRequest)
++                        .thenAccept((resp) ->
++                        {
++                            JOptionPane.showMessageDialog(null,"Delete room Successfully");
+                         })
+                         .exceptionally(err -> {
+                             JOptionPane.showMessageDialog(null,err.getMessage());
+                             return null;
+                         });
+-
++                getListAllRooms();
+             }
+         });
+-
+         scheduleButton.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
++                if(capacityInput.getText().equals("")||roomInput.getText().equals("")||speakerIDInput.getText().equals("")) {
++                    JOptionPane.showMessageDialog(null, "Values can not be null", "CheckInput", JOptionPane.INFORMATION_MESSAGE);
++                    return;
++                }
+ 
+                 CreateEventRequest createEventReq = new CreateEventRequest();
+                 createEventReq.capacity = Integer.parseInt(capacityInput.getText());
+                 createEventReq.room = roomInput.getText();
+                 createEventReq.startTime = startTimeInput.getText();
+                 createEventReq.endTime = endTimeInput.getText();
+-                List<String> listSpeaker = new ArrayList<>();
+-                listSpeaker.add(speakerIDInput.getText());
+-                createEventReq.speaker = listSpeaker;
++                createEventReq.speaker = Arrays.asList(speakerIDInput.getText().split(","));
+                 createEventReq.type = EventType.fromValue(getSelectedEventType((String) eventTypeBox.getSelectedItem()));
+                 reqMgr.sendAsync(createEventReq)
+                         .thenAccept((resp) ->
+                         {JOptionPane.showMessageDialog(null,"Schedule event Successfully");
++                            getListAllEvents();
+                         })
+                         .exceptionally(err -> {
+                             JOptionPane.showMessageDialog(null,err.getMessage());
+@@ -257,34 +275,115 @@
+             }
+         });
+ 
++        messageSendBox.addActionListener(new ActionListener() {
++            @Override
++            public void actionPerformed(ActionEvent e) {
++                int index = messageSendBox.getSelectedIndex();
++                if (index == 0) {
++                    eventIDInput.setEnabled(false);
++                } else {
++                    eventIDInput.setEnabled(true);
++                }
++            }
++        });
++
+         sendButton.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+-
+-                MessageAllSpeakerRequest allSpeakerReq = new MessageAllSpeakerRequest();
+-                allSpeakerReq.message = messageInput.getText();
+-                reqMgr.sendAsync(allSpeakerReq)
+-                        .thenAccept((resp) ->
+-                        {JOptionPane.showMessageDialog(null,"Message sent Successfully");
+-                        })
+-                        .exceptionally(err -> {
+-                            JOptionPane.showMessageDialog(null,err.getMessage());
+-                            return null;
+-                        });
++                if(messageInput.getText().equals("")) {
++                    JOptionPane.showMessageDialog(null, "Pleas input message.", "CheckInput", JOptionPane.INFORMATION_MESSAGE);
++                    return;
++                }
++                int index = messageSendBox.getSelectedIndex();
++                if(index == 0) {
++                    MessageAllSpeakerRequest allSpeakerReq = new MessageAllSpeakerRequest();
++                    allSpeakerReq.message = messageInput.getText();
++                    reqMgr.sendAsync(allSpeakerReq)
++                            .thenAccept((resp) ->
++                            {
++                                JOptionPane.showMessageDialog(null,"Message sent to all speakers Successfully");
++                            })
++                            .exceptionally(err -> {
++                                JOptionPane.showMessageDialog(null,err.getMessage());
++                                return null;
++                            });
++                } else if (index == 1) {
++                    BroadcastAudiencesRequest allAttendeesReq = new BroadcastAudiencesRequest();
++                    allAttendeesReq.content = messageInput.getText();
++                    allAttendeesReq.eventId = Integer.parseInt(eventIDInput.getText());
++                    reqMgr.sendAsync(allAttendeesReq)
++                            .thenAccept((resp) ->
++                            {
++                                JOptionPane.showMessageDialog(null,"Message sent to all attendees Successfully");
++                            })
++                            .exceptionally(err -> {
++                                JOptionPane.showMessageDialog(null,err.getMessage());
++                                return null;
++                            });
++                } else if (index == 2) {
++                    MessageEventRequest specificEventReq = new MessageEventRequest();
++                    specificEventReq.message = messageInput.getText();
++                    specificEventReq.eventId = Integer.parseInt(eventIDInput.getText());
++                    reqMgr.sendAsync(specificEventReq)
++                            .thenAccept((resp) ->
++                            {
++                                JOptionPane.showMessageDialog(null,"Message sent to specific event Successfully");
++                            })
++                            .exceptionally(err -> {
++                                JOptionPane.showMessageDialog(null,err.getMessage());
++                                return null;
++                            });
++                } else if (index == 3) {
++                    MessageSpeakerRequest specificSpeakerReq = new MessageSpeakerRequest();
++                    specificSpeakerReq.content = messageInput.getText();
++                    specificSpeakerReq.eventId = Integer.parseInt(eventIDInput.getText());
++                    reqMgr.sendAsync(specificSpeakerReq)
++                            .thenAccept((resp) ->
++                            {
++                                JOptionPane.showMessageDialog(null,"Message sent to specific speaker Successfully");
++                            })
++                            .exceptionally(err -> {
++                                JOptionPane.showMessageDialog(null,err.getMessage());
++                                return null;
++                            });
++                }
++
+ 
+             }
+         });
+ 
+-        refreshButton.addActionListener(new ActionListener() {
++        refreshEventsButton.addActionListener(new ActionListener() {
++            @Override
++            public void actionPerformed(ActionEvent e) {
++                getListAllEvents();
++            }
++        });
++
++        deleteEventButton.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+-                getListAllEvents();
++                DeleteEventRequest deleteEventReq = new DeleteEventRequest();
++                int index = eventTable.getSelectedRow();
++                if (index == -1) {
++                    JOptionPane.showMessageDialog(null, "Must select a event!", "Check", JOptionPane.INFORMATION_MESSAGE);
++                    return;
++                }
++                deleteEventReq.eventId = (int) eventTable.getValueAt(index, 0);
++                reqMgr.sendAsync(deleteEventReq).thenAccept((resp) -> {
++                    JOptionPane.showMessageDialog(null, "Delete event Successfully");
++                    getListAllEvents();
++                }).exceptionally(err -> {
++                    JOptionPane.showMessageDialog(null, err.getMessage());
++                    return null;
++                });
+             }
+         });
+ 
+         this.add(panel, BorderLayout.CENTER);
+         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+-        this.setTitle("Oraganizer Homepage");
++        this.setLocationRelativeTo(null);
++        this.setResizable(false);
++        this.setTitle("Oraganizer Homepage - " + username);
+     }
+ 
+     private void getListAllEvents() {
+@@ -292,20 +391,38 @@
+ 
+         reqMgr.sendAsync(listEventsReq).thenAccept((resp) -> {
+ 
+-            JOptionPane.showMessageDialog(null, "Receive Events Successfully");
+-
+             ListEventsResponse eventListResp = (ListEventsResponse) resp;
++            ((DefaultTableModel)eventTable.getModel()).getDataVector().clear();
+             for (int i = 0; i < eventListResp.events.size(); i++) {
+                 Event event = eventListResp.events.get(i);
+-                if (event.getType().equals(EventType.VIPEVENT)) {
++                if (event.getType().getValue() == 3) {
+                     ((DefaultTableModel) eventTable.getModel())
+-                            .addRow(new Object[] { event.getId(), event.getRoomId(), event.getSpeakers() });
++                            .addRow(new Object[] { event.getId(), event.getRoomId(), event.getSpeakers(), event.getCapacity() });
+                 } else {
+                     ((DefaultTableModel) eventTable.getModel())
+-                            .addRow(new Object[] { event.getId(), event.getRoomId(), event.getSpeakers() });
++                            .addRow(new Object[] { event.getId(), event.getRoomId(), event.getSpeakers(), event.getCapacity() });
+                 }
+             }
++            eventTable.repaint();
++        }).exceptionally(err -> {
++            JOptionPane.showMessageDialog(null, err.getMessage());
++            return null;
++        });
++    }
+ 
++    private void getListAllRooms() {
++        ListRoomsRequest listRoomsReq = new ListRoomsRequest();
++
++        reqMgr.sendAsync(listRoomsReq).thenAccept((resp) -> {
++
++            ListRoomsResponse roomListResp = (ListRoomsResponse) resp;
++            ((DefaultTableModel)roomTable.getModel()).getDataVector().clear();
++            for (int i = 0; i < roomListResp.rooms.size(); i++) {
++                Room room = roomListResp.rooms.get(i);
++                ((DefaultTableModel) roomTable.getModel())
++                        .addRow(new Object[] { room.getId(), room.getName(), room.getCapacity() });
++            }
++            roomTable.repaint();
+         }).exceptionally(err -> {
+             JOptionPane.showMessageDialog(null, err.getMessage());
+             return null;
+Index: ../chat-server/src/main/java/ca/utoronto/cs/requesthandler/CreateEventRequestHandler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ca.utoronto.cs.requesthandler;\n\nimport ca.utoronto.cs.entity.*;\nimport ca.utoronto.cs.exception.EventConflictException;\nimport ca.utoronto.cs.exception.GenericErrorException;\nimport ca.utoronto.cs.exception.InternalExceptionBase;\nimport ca.utoronto.cs.exception.ObjectNotFoundException;\nimport ca.utoronto.cs.message.CreateEventRequest;\nimport ca.utoronto.cs.message.CreateEventResponse;\nimport io.netty.channel.ChannelHandlerContext;\nimport org.apache.logging.log4j.LogManager;\nimport org.apache.logging.log4j.Logger;\n\nimport java.text.DateFormat;\nimport java.text.ParseException;\nimport java.text.SimpleDateFormat;\nimport java.util.ArrayList;\nimport java.util.Date;\nimport java.util.List;\n\npublic class CreateEventRequestHandler extends RequestHandler<CreateEventRequest> {\n\tprivate final Logger logger = LogManager.getLogger();\n\n\tpublic CreateEventRequestHandler(Class<CreateEventRequest> cls) {\n\t\tsuper(cls);\n\t}\n\n\t/**\n\t * To handle CreateEventRequest.\n\t * 1.check if content is valid.\n\t * 2.check start time and end time is valid.\n\t * 3.check event conflict\n\t * 4.create event\n\t * @param ctx status\n\t * @param req content from user.\n\t */\n\t@Override\n\tpublic CreateEventResponse _handle(ChannelHandlerContext ctx, CreateEventRequest req) {\n\t\tCreateEventResponse resp = new CreateEventResponse();\n\n\t\t// Get room\n\t\tRoom room;\n\t\ttry {\n\t\t\troom = roomMgr.getRoom(req.room);\n\t\t}\n\t\tcatch (ObjectNotFoundException e){\n\t\t\tlogger.error(\"name or id already exist\");\n\t\t\tthrow new GenericErrorException(\"room's name or id already exist\");\n\t\t}\n\n\t\t// Get speaker\n\t\tList<User> speakers = new ArrayList<>();\n\t\tfor (String u : req.speaker){\n\t\t\ttry {\n\t\t\t\tspeakers.add(userMgr.getUserByName(u));\n\t\t\t}\n\t\t\tcatch (InternalExceptionBase e) {\n\t\t\t\tlogger.error(\"unable to add user name={} as speaker\", u);\n\t\t\t\tlogger.error(e);\n\t\t\t}\n\t\t}\n\n\t\t// Get start/end date\n\t\tDateFormat dateFormat = new SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss\");\n\t\tDate start = null;\n\t\tDate end = null;\n\t\ttry {\n\t\t\tstart = dateFormat.parse(req.startTime);\n\t\t} catch (ParseException e) {\n\t\t\tlogger.error(\"parse start time failed\");\n\t\t\tlogger.error(e);\n\t\t}\n\t\ttry {\n\t\t\tend = dateFormat.parse(req.endTime);\n\t\t} catch (ParseException e) {\n\t\t\tlogger.error(\"parse end time failed\");\n\t\t\tlogger.error(e);\n\t\t}\n\t\tif (start == null || end == null) {\n\t\t\tlogger.error(\"start or end date parse failed\");\n\t\t\tthrow new GenericErrorException(\"start/end time parse failed\");\n\t\t}\n\n\t\t// Get organiser\n\t\tUser organiser = connMgr.getUserByChannel(ctx.channel());\n\t\tif (!organiser.getRole().equals(Role.OPERATOR)) {\n\t\t\tlogger.warn(\"user ({}) role is not organiser\", organiser);\n\t\t\tthrow new GenericErrorException(\"user role is not organiser\");\n\t\t}\n\t\tint capacity = req.capacity;\n\t\tif (capacity > room.getCapacity()){\n\t\t\tlogger.warn(\"the max capacity for this room is ({})\", room.getCapacity());\n\t\t\tthrow new GenericErrorException(String.format(\n\t\t\t\t\t\"the max capacity for this room is %s\",\n\t\t\t\t\troom.getCapacity()));\n\t\t}\n\n\t\tEventType role = req.type;\n\t\tEvent event = null;\n\t\ttry {\n\t\t\tevent = eventMgr.createEvent(req.name, organiser, room, speakers, start, end, role, capacity);\n\t\t}\n\t\tcatch (EventConflictException e) {\n\t\t\tthrow new GenericErrorException(\"event conflict\");\n\t\t}\n\n\t\tlogger.info(\"Event created. event={}\", event);\n\t\tresp.event = event;\n\t\treturn resp;\n\t}\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ../chat-server/src/main/java/ca/utoronto/cs/requesthandler/CreateEventRequestHandler.java	(revision 1ac2f67fe84e6b8910f73f5579bdd92a42d4c127)
++++ ../chat-server/src/main/java/ca/utoronto/cs/requesthandler/CreateEventRequestHandler.java	(date 1607488112224)
+@@ -54,8 +54,8 @@
+ 			try {
+ 				speakers.add(userMgr.getUserByName(u));
+ 			}
+-			catch (InternalExceptionBase e) {
+-				logger.error("unable to add user name={} as speaker", u);
++			catch (ObjectNotFoundException e) {
++				logger.error("can't find user={}", u);
+ 				logger.error(e);
+ 			}
+ 		}
+@@ -96,6 +96,9 @@
+ 		}
+ 
+ 		EventType role = req.type;
++		if (role.getValue() ==)
++
++
+ 		Event event = null;
+ 		try {
+ 			event = eventMgr.createEvent(req.name, organiser, room, speakers, start, end, role, capacity);

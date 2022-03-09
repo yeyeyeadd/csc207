@@ -1,0 +1,35 @@
+Index: src/main/java/ca/utoronto/cs/entity/Event.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ca.utoronto.cs.entity;\n\nimport java.util.ArrayList;\nimport java.util.Date;\nimport java.util.List;\nimport java.util.concurrent.CopyOnWriteArrayList;\n\npublic class Event {\n    private List<Integer> participants = new CopyOnWriteArrayList<>();\n    private int id;\n    private String name;\n    private int organiserId;\n    private int roomId;\n    private final ArrayList<Integer> speakerId = new ArrayList<>();\n    private Date start;\n    private Date end;\n    private TypeofEvent type;\n    private int capacity;\n    /**\n     *Return participants of Event\n     * @return the participants for user who send message.\n     */\n    public List<Integer> getParticipants() {\n        return participants;\n    }\n    /**\n     * setter for participants\n     * @param participants the content of user send.\n     */\n    public void setParticipants(List<Integer> participants) {\n        this.participants = participants;\n    }\n    /**\n     * Return the id of this event\n     *\n     * @return the id of this event\n     */\n    public int getId() {\n        return id;\n    }\n    /**\n     * set the id of this event\n     *\n     * @param id the id of this event\n     */\n    public void setId(int id) {\n        this.id = id;\n    }\n    /**\n     * Return the name of this event\n     *\n     * @return the name of this event\n     */\n    public String getName() {\n        return name;\n    }\n    /**\n     * set the name of this event\n     *\n     * @param name the name of this event\n     */\n    public void setName(String name) {\n        this.name = name;\n    }\n    /**\n     * Return the organiserId of this event\n     *\n     * @return the organiserId of this event\n     */\n    public int getOrganiserId() {\n        return organiserId;\n    }\n    /**\n     * set the organiserId of this event\n     *\n     * @param organiserId the organiserId of this event\n     */\n    public void setOrganiserId(int organiserId) {\n        this.organiserId = organiserId;\n    }\n    /**\n     * Return the roomId of this event\n     *\n     * @return the roomId of this event\n     */\n    public int getRoomId() {\n        return roomId;\n    }\n    /**\n     * set the roomId of this event\n     *\n     * @param roomId the roomId of this event\n     */\n    public void setRoomId(int roomId) {\n        this.roomId = roomId;\n    }\n    /**\n     * Return the speakerId of this event\n     *\n     * @return the speakerId of this event\n     */\n    public ArrayList<Integer> getSpeakerId() {\n        return speakerId;\n    }\n    /**\n     * set the speakerId of this event\n     *\n     * @param speakerId the speakerId of this event\n     */\n    public void setSpeakerId(int speakerId) {\n        this.speakerId.add(speakerId);\n    }\n    /**\n     * Return the start of this event\n     *\n     * @return the start of this event\n     */\n    public Date getStart() {\n        return start;\n    }\n    /**\n     * set the start of this event\n     *\n     * @param start the start of this event\n     */\n    public void setStart(Date start) {\n        this.start = start;\n    }\n    /**\n     * Return the end of this event\n     *\n     * @return the end of this event\n     */\n    public Date getEnd() {\n        return end;\n    }\n    /**\n     * set the end of this event\n     *\n     * @param end the end of this event\n     */\n    public void setEnd(Date end) {\n        this.end = end;\n    }\n    public TypeofEvent getRole() {\n        return type;\n    }\n\n    public void setRole(TypeofEvent type) {\n        this.type = type;\n    }\n    /**\n     * set the Capacity of this event\n     *\n     * @param capacity the max capacity of this event\n     */\n    public void setCapacity(int capacity) {\n        this.capacity = capacity;\n    }\n\n    /**\n     * Return the capacity of this event\n     *\n     * @return the capacity of this event\n     */\n    public int getCapacity() {\n        return capacity;\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/ca/utoronto/cs/entity/Event.java	(revision 03955e1cf85512fc2ee8efba22378bbd40d2fe50)
++++ src/main/java/ca/utoronto/cs/entity/Event.java	(date 1607376160822)
+@@ -14,7 +14,7 @@
+     private final ArrayList<Integer> speakerId = new ArrayList<>();
+     private Date start;
+     private Date end;
+-    private TypeofEvent type;
++    private EventType type;
+     private int capacity;
+     /**
+      *Return participants of Event
+@@ -142,11 +142,11 @@
+     public void setEnd(Date end) {
+         this.end = end;
+     }
+-    public TypeofEvent getRole() {
++    public EventType getRole() {
+         return type;
+     }
+ 
+-    public void setRole(TypeofEvent type) {
++    public void setRole(EventType type) {
+         this.type = type;
+     }
+     /**
+diff --git src/main/java/ca/utoronto/cs/entity/TypeofEvent.java src/main/java/ca/utoronto/cs/entity/EventType.java
+rename from src/main/java/ca/utoronto/cs/entity/TypeofEvent.java
+rename to src/main/java/ca/utoronto/cs/entity/EventType.java

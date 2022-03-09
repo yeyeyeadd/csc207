@@ -1,0 +1,67 @@
+[ {
+  "id" : 1,
+  "username" : "ANONYMOUS",
+  "password" : "Qqwkdh0921e@E---",
+  "role" : 0,
+  "friends" : [ ]
+}, {
+  "id" : 2,
+  "username" : "admin",
+  "password" : "admin",
+  "role" : 1,
+  "friends" : [ ]
+}, {
+  "id" : 3,
+  "username" : "demo",
+  "password" : "demo",
+  "role" : 2,
+  "friends" : [ ]
+}, {
+  "id" : 4,
+  "username" : "user1",
+  "password" : "user",
+  "role" : 1,
+  "friends" : [ ]
+}, {
+  "id" : 5,
+  "username" : "operator",
+  "password" : "123",
+  "role" : 1,
+  "friends" : [ ]
+}, {
+  "id" : 6,
+  "username" : "o",
+  "password" : "123",
+  "role" : 1,
+  "friends" : [ ]
+}, {
+  "id" : 7,
+  "username" : "u1",
+  "password" : "123",
+  "role" : 2,
+  "friends" : [ ]
+}, {
+  "id" : 8,
+  "username" : "u2",
+  "password" : "123",
+  "role" : 2,
+  "friends" : [ ]
+}, {
+  "id" : 9,
+  "username" : "u3",
+  "password" : "123",
+  "role" : 2,
+  "friends" : [ ]
+}, {
+  "id" : 10,
+  "username" : "u4",
+  "password" : "123",
+  "role" : 2,
+  "friends" : [ ]
+}, {
+  "id" : 11,
+  "username" : "vip",
+  "password" : "123",
+  "role" : 3,
+  "friends" : [ ]
+} ]

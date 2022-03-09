@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand />
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5cdc2448-1548-421f-9515-bc6760e67913" name="Default Changelist" comment="readme">
+      <change beforePath="$PROJECT_DIR$/src/main/java/ca/utoronto/cs/View/OperatorFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ca/utoronto/cs/View/OperatorFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat-server/devdata.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/../chat-server/devdata.sqlite" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1lDJwKhu9em4F8uGmZl3iFFiCf8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="ToolWindowGit.ShowToolbar" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ca.utoronto.cs.message" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="App" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ca.utoronto.cs.App" />
+      <module name="chat-client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ca.utoronto.cs.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5cdc2448-1548-421f-9515-bc6760e67913" name="Default Changelist" comment="" />
+      <created>1607125966122</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607125966122</updated>
+    </task>
+    <task id="LOCAL-00001" summary="LoginFrame">
+      <created>1607135272417</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1607135272417</updated>
+    </task>
+    <task id="LOCAL-00002" summary="change req.role and req.type to ROLE and TypeofEvent">
+      <created>1607213802458</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1607213802458</updated>
+    </task>
+    <task id="LOCAL-00003" summary="create room">
+      <created>1607312577360</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1607312577360</updated>
+    </task>
+    <task id="LOCAL-00004" summary="create room">
+      <created>1607312720473</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1607312720473</updated>
+    </task>
+    <task id="LOCAL-00005" summary="EventType">
+      <created>1607320753555</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1607320753555</updated>
+    </task>
+    <task id="LOCAL-00006" summary="EventType">
+      <created>1607385901698</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1607385901698</updated>
+    </task>
+    <task id="LOCAL-00007" summary="WhoAmIRequest">
+      <created>1607398596069</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1607398596069</updated>
+    </task>
+    <task id="LOCAL-00008" summary="mymessage">
+      <created>1607402402619</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1607402402619</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Getmessage">
+      <created>1607404554408</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1607404554408</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Getmessage">
+      <created>1607404620165</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1607404620165</updated>
+    </task>
+    <task id="LOCAL-00011" summary="CreateEventRequest">
+      <created>1607484427481</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1607484427481</updated>
+    </task>
+    <task id="LOCAL-00012" summary="ChangeEventCapacity">
+      <created>1607554535813</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1607554535813</updated>
+    </task>
+    <task id="LOCAL-00013" summary="readme">
+      <created>1607748393490</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1607748393490</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_WIDTH">
+                <map>
+                  <entry key="2" value="15" />
+                  <entry key="3" value="15" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="LoginFrame" />
+    <MESSAGE value="change req.role and req.type to ROLE and TypeofEvent" />
+    <MESSAGE value="create room" />
+    <MESSAGE value="EventType" />
+    <MESSAGE value="WhoAmIRequest" />
+    <MESSAGE value="mymessage" />
+    <MESSAGE value="Getmessage" />
+    <MESSAGE value="CreateEventRequest" />
+    <MESSAGE value="ChangeEventCapacity" />
+    <MESSAGE value="readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="readme" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607967435906">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1607967435906" />
+    <state x="533" y="163" key="#com.intellij.ide.util.MemberChooser" timestamp="1607486514995">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="533" y="163" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1607486514995" />
+    <state x="100" y="61" width="1240" height="839" key="DiffContextDialog" timestamp="1607748850956">
+      <screen x="0" y="23" width="1440" height="826" />
+    </state>
+    <state x="100" y="61" width="1240" height="839" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1607748570994" />
+    <state x="100" y="84" width="1240" height="766" key="DiffContextDialog/0.23.1440.822@0.23.1440.822" timestamp="1607485412075" />
+    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.23.1440.823@0.23.1440.823" timestamp="1607306554904" />
+    <state x="100" y="61" width="1240" height="839" key="DiffContextDialog/0.23.1440.826@0.23.1440.826" timestamp="1607748850956" />
+    <state width="1398" height="244" key="GridCell.Tab.0.bottom" timestamp="1608308498560">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="244" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1608308498560" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.822@0.23.1440.822" timestamp="1607966162916" />
+    <state width="1398" height="244" key="GridCell.Tab.0.center" timestamp="1608308498559">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="244" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1608308498559" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.822@0.23.1440.822" timestamp="1607966162915" />
+    <state width="1398" height="244" key="GridCell.Tab.0.left" timestamp="1608308498558">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="244" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1608308498558" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.822@0.23.1440.822" timestamp="1607966162915" />
+    <state width="1398" height="244" key="GridCell.Tab.0.right" timestamp="1608308498560">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="244" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1608308498560" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1607966162916" />
+    <state width="1398" height="304" key="GridCell.Tab.1.bottom" timestamp="1608308498537">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="304" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1608308498537" />
+    <state width="1398" height="304" key="GridCell.Tab.1.center" timestamp="1608308498535">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="304" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1608308498535" />
+    <state width="1398" height="304" key="GridCell.Tab.1.left" timestamp="1608308498535">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="304" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1608308498535" />
+    <state width="1398" height="304" key="GridCell.Tab.1.right" timestamp="1608308498536">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="304" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1608308498536" />
+    <state x="144" y="79" key="MergeDialog" timestamp="1607384136204">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="144" y="79" key="MergeDialog/0.0.1440.900@0.0.1440.900" timestamp="1607384136204" />
+    <state x="229" y="89" key="SettingsEditor" timestamp="1607967254844">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="229" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1607967254844" />
+    <state x="371" y="164" key="Vcs.Push.Dialog.v2" timestamp="1607748396435">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="371" y="164" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1607748396435" />
+    <state x="371" y="173" key="Vcs.Push.Dialog.v2/0.23.1440.822@0.23.1440.822" timestamp="1607135365879" />
+    <state x="547" y="369" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607747194443">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="547" y="369" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1607747194443" />
+    <state x="547" y="360" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.822@0.23.1440.822" timestamp="1607135342474" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1607967319120">
+      <screen x="0" y="23" width="1440" height="822" />
+    </state>
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1607967222764" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.23.1440.822@0.23.1440.822" timestamp="1607967319120" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/chat_client$App.ic" NAME="App Coverage Results" MODIFIED="1607967420979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>ca.utoronto.cs.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="simpleUML.UMLToolWindowPlugin">
+    <General>
+      <option name="birdViewUpdateDelay" value="2000" />
+      <option name="defaultFileLocation" value="file://$PROJECT_DIR$/.." />
+    </General>
+    <Classdiagram>
+      <option name="diagramTitleFont" value="SansSerif,1,12" />
+      <option name="diagramFont" value="SansSerif,0,10" />
+      <option name="defaultFieldsExpanded" value="false" />
+      <option name="defaultContructorsExpanded" value="false" />
+      <option name="defaultMethodsExpanded" value="false" />
+      <option name="showParameters" value="true" />
+      <option name="showTooltip" value="true" />
+      <option name="showReturnValues" value="true" />
+      <option name="longModifier" value="true" />
+      <option name="implementsBehaviour" value="1" />
+      <option name="extendsBehaviour" value="1" />
+      <option name="compartmentBehaviour" value="1" />
+      <option name="interfaceBackgroundColor" value="-6494306" />
+      <option name="abstractClassBackgroundColor" value="-1580132" />
+      <option name="classBackgroundColor" value="-6508057" />
+      <option name="diagramBackgroundColor" value="-1" />
+      <option name="useAntialiasedConnectors" value="true" />
+      <option name="quickSourceLinkColor" value="-16776961" />
+      <option name="quickDiagramLinkColor" value="-8454144" />
+      <option name="drawDecorations" value="false" />
+      <option name="hideFieldList" value="" />
+      <option name="showFieldList" value="" />
+      <option name="hideConstructorList" value="" />
+      <option name="showConstructorList" value="" />
+      <option name="hideMethodList" value="" />
+      <option name="showMethodList" value="" />
+      <option name="minimumFigureSize" value="0,0" />
+    </Classdiagram>
+    <Dependencydiagram>
+      <option name="diagramTitleFont" value="SansSerif,1,12" />
+      <option name="diagramFont" value="SansSerif,0,10" />
+      <option name="diagramBackgroundColor" value="-1" />
+      <option name="useAntialiasedConnectors" value="true" />
+      <option name="packageNameCompressionLevel" value="0" />
+    </Dependencydiagram>
+    <Packagediagram>
+      <option name="diagramTitleFont" value="SansSerif,0,12" />
+      <option name="diagramFont" value="SansSerif,0,10" />
+      <option name="packageBackgroundColor" value="-4144960" />
+      <option name="diagramBackgroundColor" value="-1" />
+      <option name="useAntialiasedConnectors" value="true" />
+      <option name="packageNameCompressionLevel" value="2" />
+    </Packagediagram>
+  </component>
+</project>
